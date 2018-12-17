@@ -1,0 +1,1255 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<title>AX documentation</title>
+<style type="text/css">
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    li { list-style: none; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a:link {text-decoration: none; color: black; }
+    a:visited {text-decoration: none; color: black; }
+    a:active {text-decoration: none; color: black; }
+    a:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head><body>
+
+<script language="JavaScript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<span class="foldspecial" onclick="fold_document()">All +</span>
+<span class="foldspecial" onclick="unfold_document()">All -</span>
+<p><span style="color: rgb(0, 102, 51); font-family: SansSerif,sans-serif; font-weight: bold;">AX documentation</span>
+</p><ul><li><span id="show1_1" class="foldclosed" onclick="show_folder('1_1')" style="position: relative; visibility: visible;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1" class="foldopened" onclick="hide_folder('1_1')">-</span>
+<span style="color: rgb(102, 153, 255); font-size: 116%; font-family: SansSerif,sans-serif; font-weight: bold;">User guide</span>
+<ul id="fold1_1" style="position: absolute; visibility: hidden;"><li><span id="show1_1_1" class="foldclosed" onclick="show_folder('1_1_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_1" class="foldopened" onclick="hide_folder('1_1_1')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">AX home page</span>
+<ul id="fold1_1_1" style="position: absolute; visibility: hidden;"><li><p>The AX home page where you can download the latest version and get full documentation is at
+<br>
+http://vulpeculox.net/ax
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_2" class="foldclosed" onclick="show_folder('1_1_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_2" class="foldopened" onclick="hide_folder('1_1_2')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Download, install and 1st run</span>
+<ul id="fold1_1_2" style="position: absolute; visibility: hidden;"><li><p>1 Download to your computer
+<br>
+2 Run the installer AXINSTALLER.exe by double clicking on it
+<br>
+3 Follow the simple instructions
+<br>
+4 Run the program by Start -&gt; Programs -&gt; AX
+<br>
+5 Change preferences by right-clicking on the small yellow icon
+<br>
+ &nbsp;&nbsp;&nbsp;that appears in the system tray when AX is running
+<br>
+6 More documentation is at Start -&gt; Programs -&gt; AX
+<br>
+7 To see a complete list of currently available accents type space then F8
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_3" class="foldclosed" onclick="show_folder('1_1_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3" class="foldopened" onclick="hide_folder('1_1_3')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Options</span>
+<ul id="fold1_1_3" style="position: absolute; visibility: hidden;"><li><span id="show1_1_3_1" class="foldclosed" onclick="show_folder('1_1_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_1" class="foldopened" onclick="hide_folder('1_1_3_1')">-</span>
+General
+<ul id="fold1_1_3_1" style="position: absolute; visibility: hidden;"><li><p>AX works for many languages and symbols which can be combined.
+<br>
+(Further adaptation is possible - see Customisation below)
+<br>
+When AX is running there is a small yellow icon in the tool bar
+<br>
+(often at the botton right of your screen) &nbsp;Right-click to change
+<br>
+language, symbols and other settings.
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_3_2" class="foldclosed" onclick="show_folder('1_1_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_2" class="foldopened" onclick="hide_folder('1_1_3_2')">-</span>
+Languages
+<ul id="fold1_1_3_2" style="position: absolute; visibility: hidden;"><li><p>The top row of the settings allows you to choose a main language and 
+<br>
+an 'extra' language or set of symbols. &nbsp;These may be combined in two
+<br>
+ways: 'Mask' where the main language may disable some of the extra
+<br>
+language's characters and 'Merge' where common cycles are combined.
+<br>
+What suits you is a matter of try it and see.
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_3_3" class="foldclosed" onclick="show_folder('1_1_3_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_3" class="foldopened" onclick="hide_folder('1_1_3_3')">-</span>
+Other settings
+<ul id="fold1_1_3_3" style="position: absolute; visibility: hidden;"><li><span id="show1_1_3_3_1" class="foldclosed" onclick="show_folder('1_1_3_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_3_1" class="foldopened" onclick="hide_folder('1_1_3_3_1')">-</span>
+Function key
+<ul id="fold1_1_3_3_1" style="position: absolute; visibility: hidden;"><li>The default function key is F8. &nbsp;If this interferes with another program then try changing it.
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_3_3_2" class="foldclosed" onclick="show_folder('1_1_3_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_3_2" class="foldopened" onclick="hide_folder('1_1_3_3_2')">-</span>
+Automatic start
+<ul id="fold1_1_3_3_2" style="position: absolute; visibility: hidden;"><li><p>If you use AX a lot then setting this to 'Yes' means AX will be ready and waiting
+<br>
+in the background each time you switch on your computer.
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_3_3_3" class="foldclosed" onclick="show_folder('1_1_3_3_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_3_3" class="foldopened" onclick="hide_folder('1_1_3_3_3')">-</span>
+Dialog language
+<ul id="fold1_1_3_3_3" style="position: absolute; visibility: hidden;"><li>This is the two-letter language code for the initial information screen
+<br>
+and the settings dialog.
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_3_3_4" class="foldclosed" onclick="show_folder('1_1_3_3_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_3_3_4" class="foldopened" onclick="hide_folder('1_1_3_3_4')">-</span>
+Splash delay
+<ul id="fold1_1_3_3_4" style="position: absolute; visibility: hidden;"><li><p>This is the number of seconds the initial information screen stays on the screen for
+<br>
+unless OKed first.
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_4" class="foldclosed" onclick="show_folder('1_1_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4" class="foldopened" onclick="hide_folder('1_1_4')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Troubleshooting</span>
+<ul id="fold1_1_4" style="position: absolute; visibility: hidden;"><li><span id="show1_1_4_1" class="foldclosed" onclick="show_folder('1_1_4_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_1" class="foldopened" onclick="hide_folder('1_1_4_1')">-</span>
+Using the Sandbox
+<ul id="fold1_1_4_1" style="position: absolute; visibility: hidden;"><li><p>AX
+ works incredibly well when all things are considered, however sometimes
+ there are clashes with other programs and locations limit displayable 
+characters and keyboards are customised one way or another.
+<br>
+
+<br>
+The Sandbox should help you get to the bottom of what is the matter. 
+&nbsp;There is no guarantee you'll be able to fix the problem completely
+ but at least you'll know what is causing it.
+<br>
+
+<br>
+&#8226; Right-click on the icon in the system tray
+<br>
+&#8226; Select Sandpit from the menu
+<br>
+&#8226; You will see a complete list of displayable characters from the current Main and extra cycles
+<br>
+&#8226; Try pressing the active function key when the cursor is next to an AX-able character and see if anything happens
+<br>
+&#8226; Space then F8(etc.) puts characters on the screen one at a time (the 
+same way as it does normally) &nbsp;This may give different results.
+<br>
+&#8226; You can try cutting and pasting the from the sandbox to your application
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2" class="foldclosed" onclick="show_folder('1_1_4_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2" class="foldopened" onclick="hide_folder('1_1_4_2')">-</span>
+Interpreting what happens in the sandbox
+<ul id="fold1_1_4_2" style="position: absolute; visibility: hidden;"><li><span id="show1_1_4_2_1" class="foldclosed" onclick="show_folder('1_1_4_2_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_1" class="foldopened" onclick="hide_folder('1_1_4_2_1')">-</span>
+All the characters I want are present
+<ul id="fold1_1_4_2_1" style="position: absolute; visibility: hidden;"><li><p>This tells you that your system is capable of displaying the required characters.
+<br>
+&#8226; There is nothing wrong with your screen or language settings
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2_2" class="foldclosed" onclick="show_folder('1_1_4_2_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_2" class="foldopened" onclick="hide_folder('1_1_4_2_2')">-</span>
+The characters I want are missing or shown by a square
+<ul id="fold1_1_4_2_2" style="position: absolute; visibility: hidden;"><li><p>Your system is incapable of displaying some characters.
+<br>
+&#8226; You may be able to change this via Start-&gt;Settings-&gt;Control Panel-&gt;Regional and language options
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2_3" class="foldclosed" onclick="show_folder('1_1_4_2_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_3" class="foldopened" onclick="hide_folder('1_1_4_2_3')">-</span>
+Nothing happens when I press F8
+<ul id="fold1_1_4_2_3" style="position: absolute; visibility: hidden;"><li><p>It
+ looks like your keyboard is 'using F8 for something else'. &nbsp;This 
+is especially common with laptops and 'media' keyboards.
+<br>
+&#8226; The function key used to activate AX can be set in the Settings menu. Experiment.
+<br>
+&#8226; There have been some reports of 'security' programs interfering with the keyboard. (And malware can do the same.)
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2_4" class="foldclosed" onclick="show_folder('1_1_4_2_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_4" class="foldopened" onclick="hide_folder('1_1_4_2_4')">-</span>
+The function key works perfectly in the sandbox
+<ul id="fold1_1_4_2_4" style="position: absolute; visibility: hidden;"><li><p>If
+ F8 (Or alternative as set in the Settings) works in the Sandbox but not
+ in your application then the first thing to do is try another function 
+key.
+<br>
+&#8226; Applications may use a function key in a way which blocks AX
+<br>
+&#8226; Applications may be trying fancy auto-correct-as-you-go
+<br>
+Try AX in a number of applications eg word processor, web browser, email and see what the differences are
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2_5" class="foldclosed" onclick="show_folder('1_1_4_2_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_5" class="foldopened" onclick="hide_folder('1_1_4_2_5')">-</span>
+Space then F8 gives different results to the initial full listing
+<ul id="fold1_1_4_2_5" style="position: absolute; visibility: hidden;"><li><p>This
+ indicates that some of the keystrokes being used by AX are being 
+intercepted somewhere. &nbsp;(Not in your application.) The reports of 
+this behaviour have implicated background applications. (The sort that 
+put all those icons in your system tray that you don't know what they 
+actually do.) &nbsp;Try exiting some of those and see if you get your 
+keyboard back. &nbsp;
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2_6" class="foldclosed" onclick="show_folder('1_1_4_2_6')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_6" class="foldopened" onclick="hide_folder('1_1_4_2_6')">-</span>
+Space then F8 works correctly in the sandpit but not my application
+<ul id="fold1_1_4_2_6" style="position: absolute; visibility: hidden;"><li><p>Your
+ application is not accepting some keystrokes as legitimate characters. 
+&nbsp;There is nothing to do but explain to the program manufacturer. 
+&nbsp;If you get an unsatisfactory response don't use their program. 
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_2_7" class="foldclosed" onclick="show_folder('1_1_4_2_7')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_7" class="foldopened" onclick="hide_folder('1_1_4_2_7')">-</span>
+Cutting and pasting from sandbox to my application works for 'difficult' characters
+<ul id="fold1_1_4_2_7" style="position: absolute; visibility: hidden;"><li>This suggests that the problem lies with your application rejecting particular keystrokes.
+<br>
+
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_4_2_8" class="foldclosed" onclick="show_folder('1_1_4_2_8')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_2_8" class="foldopened" onclick="hide_folder('1_1_4_2_8')">-</span>
+Cutting and pasting from to my application doesn't work properly
+<ul id="fold1_1_4_2_8" style="position: absolute; visibility: hidden;"><li><p>This
+ suggests that your application simply won't show the characters. 
+&nbsp;ie. The problem lies with the application in particular not the 
+computer in general.
+<br>
+&#8226; Your application may have language settings hidden in some back corner you can experiment with.
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_4_3" class="foldclosed" onclick="show_folder('1_1_4_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_3" class="foldopened" onclick="hide_folder('1_1_4_3')">-</span>
+AX doesn't work with some programs
+<ul id="fold1_1_4_3" style="position: absolute; visibility: hidden;"><li><p>AX should work with just about every program. &nbsp;A good place to start is try it
+<br>
+in word processor, browser, email program and even Windows explorer. &nbsp;&nbsp;The first thing to
+<br>
+try is changing the function key. &nbsp;&nbsp;
+<br>
+&#8226; See Using the sandpit above
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_4" class="foldclosed" onclick="show_folder('1_1_4_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_4" class="foldopened" onclick="hide_folder('1_1_4_4')">-</span>
+AX doesn't work at all
+<ul id="fold1_1_4_4" style="position: absolute; visibility: hidden;"><li><p>Some laptops and keyboards have funny other uses for all the function keys.
+<br>
+You'll need to find out how to stop them being,say, "Next track" and reverting to 
+<br>
+plain F-key function.
+<br>
+&#8226; See Using the sandpit above
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_4_5" class="foldclosed" onclick="show_folder('1_1_4_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_4_5" class="foldopened" onclick="hide_folder('1_1_4_5')">-</span>
+Some accents don't work
+<ul id="fold1_1_4_5" style="position: absolute; visibility: hidden;"><li><p>If you see a square box it means your system is not set up to display
+<br>
+that character. &nbsp;This is more often the case with symbols. &nbsp;If it is an
+<br>
+important accent then check your regional settings (Start -&gt; Settings -&gt; Control Panel)
+<br>
+
+<br>
+Some programs refuse to work with some characters. &nbsp;Typically a word processor
+<br>
+might refuse to work with a particular accent. &nbsp;This might be due to automatic correction
+<br>
+or a bug. &nbsp;Check by trying typing into a search and replace box. &nbsp;If it works there and not
+<br>
+the text it is probably something like correct-as-you-go. &nbsp;
+<br>
+&#8226; See Using the sandpit above
+<br>
+
+<br>
+If you've checked that space then F8 doesn't list your specific accent 
+then have a look at ax.cfg (typically in C:\Program Files\Vulpeculox\ax)
+ where the language cycles are defined.&lt;b&gt;But do not edit it! See 
+Adaptation guide below&lt;/b&gt; &nbsp;It may be that your language is 
+not very well implemented. &nbsp;(But it is quite easy to adapt if you 
+follow basic rules.)
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_5" class="foldclosed" onclick="show_folder('1_1_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_5" class="foldopened" onclick="hide_folder('1_1_5')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Customisation</span>
+<ul id="fold1_1_5" style="position: absolute; visibility: hidden;"><li><p>People are always wanting to add 'their' language to AX.
+<br>
+This is easy to do, please read the Adaptation guide.
+<br>
+The power of AX comes from lots of people cooperating
+<br>
+to make the changes available to the rest of the community.
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_6" class="foldclosed" onclick="show_folder('1_1_6')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_6" class="foldopened" onclick="hide_folder('1_1_6')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Questions and support</span>
+<ul id="fold1_1_6" style="position: absolute; visibility: hidden;"><li><span id="show1_1_6_1" class="foldclosed" onclick="show_folder('1_1_6_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_6_1" class="foldopened" onclick="hide_folder('1_1_6_1')">-</span>
+Frequently asked questions
+<ul id="fold1_1_6_1" style="position: absolute; visibility: hidden;"><li><span id="show1_1_6_1_1" class="foldclosed" onclick="show_folder('1_1_6_1_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_6_1_1" class="foldopened" onclick="hide_folder('1_1_6_1_1')">-</span>
+Where is AX installed?
+<ul id="fold1_1_6_1_1" style="position: absolute; visibility: hidden;"><li>Typically C:\Program files\Vulpeculox\AX\
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_6_1_2" class="foldclosed" onclick="show_folder('1_1_6_1_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_6_1_2" class="foldopened" onclick="hide_folder('1_1_6_1_2')">-</span>
+Why does my anti-virus say it is malware?
+<ul id="fold1_1_6_1_2" style="position: absolute; visibility: hidden;"><li><p>AX spys on your keyboard. &nbsp;This is legitimate but some malware does the same thing. 
+<br>
+Some anti-virus programs can't tell the difference. 
+
+</p></li></ul>
+</li>
+<li><span id="show1_1_6_1_3" class="foldclosed" onclick="show_folder('1_1_6_1_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_6_1_3" class="foldopened" onclick="hide_folder('1_1_6_1_3')">-</span>
+How do I change the accents?
+<ul id="fold1_1_6_1_3" style="position: absolute; visibility: hidden;"><li>Look at the Adaptation guide.
+<br>
+Basically you use a Unicode editor to edit ax.cfg
+<br>
+
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_6_2" class="foldclosed" onclick="show_folder('1_1_6_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_6_2" class="foldopened" onclick="hide_folder('1_1_6_2')">-</span>
+Contact the author
+<ul id="fold1_1_6_2" style="position: absolute; visibility: hidden;"><li><p>email ax@vulpeculox.net
+<br>
+* Unresolved problems
+<br>
+* Solutions (They can help others who have the same problem.)
+<br>
+
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_7" class="foldclosed" onclick="show_folder('1_1_7')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_1_7" class="foldopened" onclick="hide_folder('1_1_7')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Legal</span>
+<ul id="fold1_1_7" style="position: absolute; visibility: hidden;"><li><p>&#8226; AX is written by Peter Fox, 2 Tees Close, Witham, Essex, &nbsp;CM8 1LG, England
+<br>
+&#8226; The program is copyrighted and owned by Peter Fox. &nbsp;
+<br>
+&#8226; The software is licenced under the terms of the "GPL" as distributed with the program
+<br>
+ &nbsp;The key thing about this licence is that if you alter or redistribute the program you MUST
+<br>
+ &nbsp;provide the source. &nbsp;This is all about people building on each other's efforts.
+<br>
+&#8226; No warranty of fitness is offered or to be implied. &nbsp;Use at your own risk...
+<br>
+&#8226; ...However there is no malware, nagging, overt or covert data collection of any sort associated
+<br>
+ &nbsp;with this program. &nbsp;(Emails to ax@vulpeculox.net will be retained if I think there may be a
+<br>
+ &nbsp;useful purpose in contacting a contributor at a later date.)
+<br>
+
+<br>
+
+<br>
+
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onclick="show_folder('1_2')" style="position: relative; visibility: visible;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2" class="foldopened" onclick="hide_folder('1_2')">-</span>
+<span style="color: rgb(102, 153, 255); font-size: 116%; font-family: SansSerif,sans-serif; font-weight: bold;">Adaptation guide</span>
+<ul id="fold1_2" style="position: absolute; visibility: hidden;"><li><span id="show1_2_1" class="foldclosed" onclick="show_folder('1_2_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_1" class="foldopened" onclick="hide_folder('1_2_1')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Before making alterations</span>
+<ul id="fold1_2_1" style="position: absolute; visibility: hidden;"><li><p>If you can't get what you want by altering the settings then editing ax.cfg
+<br>
+will allow you to:
+<br>
+(a) Change cycles of accents
+<br>
+(b) Add new languages and symbol sets
+<br>
+(c) Add a new dialog language
+<br>
+
+<br>
+* You should make a safety copy of ax.cfg first.
+<br>
+* You will need a Unicode text editor
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_2_2" class="foldclosed" onclick="show_folder('1_2_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_2" class="foldopened" onclick="hide_folder('1_2_2')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">How AX works</span>
+<ul id="fold1_2_2" style="position: absolute; visibility: hidden;"><li><span id="show1_2_2_1" class="foldclosed" onclick="show_folder('1_2_2_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_2_1" class="foldopened" onclick="hide_folder('1_2_2_1')">-</span>
+Parts
+<ul id="fold1_2_2_1" style="position: absolute; visibility: hidden;"><li><p>AX.exe is the program which reads all the languages from AX.cfg
+<br>
+AX.cfg is the file you will be editing to give AX extra languages.
+<br>
+(AX.ahk is the source which is included so that anyone who
+<br>
+wishes to develop AX or just see how it works can build on it.
+<br>
+If you are interested in programming then see the Script construction
+<br>
+section below.)
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_2_2_2" class="foldclosed" onclick="show_folder('1_2_2_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_2_2" class="foldopened" onclick="hide_folder('1_2_2_2')">-</span>
+Method
+<ul id="fold1_2_2_2" style="position: absolute; visibility: hidden;"><li><p>The accenting part of AX works as follows:
+<br>
+When F8 is pressed it selects and backspaces as if from the keyboard.
+<br>
+Now it copies the selected character and looks it up in a list of characters called a cycle.
+<br>
+If if is in the cycle it pastes the next character in the place of the selected one.
+<br>
+
+<br>
+Suppose we have a cycle of three characters "S$S". &nbsp;If the cursor is just to the right of "S"
+<br>
+in some text when F8 is pressed the next character in the cycle will be "$" and so S is
+<br>
+turned into $. &nbsp;If we press F8 again now the character to the left of the cursor is "$" &nbsp;It 
+<br>
+is found of course in the cycle and the next is "S". &nbsp;&nbsp;Notice that we are now exactly as
+<br>
+we were at the start.
+<br>
+
+<br>
+IMPORTANT : The start and end letter of each cycle must be the same.
+<br>
+
+<br>
+IMPORTANT : Cycles must be separated by a space
+<br>
+
+<br>
+Typically we want bundle a number of cycles together. &nbsp;All the cycles are
+<br>
+in the AX.cfg file.
+<br>
+
+<br>
+IMPORTANT : This is a Unicode file and MUST be edited with a UNICODE TEXT EDITOR
+<br>
+otherwise it will be corrupted. &nbsp;(Take a backup first.)
+<br>
+
+<br>
+
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_3" class="foldclosed" onclick="show_folder('1_2_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3" class="foldopened" onclick="hide_folder('1_2_3')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Edit ax.cfg</span>
+<ul id="fold1_2_3" style="position: absolute; visibility: hidden;"><li><span id="show1_2_3_1" class="foldclosed" onclick="show_folder('1_2_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3_1" class="foldopened" onclick="hide_folder('1_2_3_1')">-</span>
+General
+<ul id="fold1_2_3_1" style="position: absolute; visibility: hidden;"><li><p>IMPORTANT : AX.cfg is a Unicode text file and can only be edited with a Unicode text editor
+<br>
+
+<br>
+Take a backup first.
+<br>
+
+<br>
+If you make changes to ax.cfg then please attach ax.cfg to an email to 
+ax@vulpeculox.net (Don't send in the body of the text) explaining what 
+you've done. &nbsp;These changes can then be incorporated into the next 
+release.
+<br>
+
+<br>
+To test out ax.cfg you have to either end then restart the program or run through the settings dialog.
+<br>
+ 
+
+</p></li></ul>
+</li>
+<li><span id="show1_2_3_2" class="foldclosed" onclick="show_folder('1_2_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3_2" class="foldopened" onclick="hide_folder('1_2_3_2')">-</span>
+Adding a new language
+<ul id="fold1_2_3_2" style="position: absolute; visibility: hidden;"><li><p>It should be obvous where you have to make the changes and how these are formatted.
+<br>
+
+<br>
+Remember that cycles are called cycles for a reason: The first and last letters are the same.
+<br>
+
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_2_3_3" class="foldclosed" onclick="show_folder('1_2_3_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3_3" class="foldopened" onclick="hide_folder('1_2_3_3')">-</span>
+Adding a new dialog internationalisation
+<ul id="fold1_2_3_3" style="position: absolute; visibility: hidden;"><li><span id="show1_2_3_3_1" class="foldclosed" onclick="show_folder('1_2_3_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3_3_1" class="foldopened" onclick="hide_folder('1_2_3_3_1')">-</span>
+General
+<ul id="fold1_2_3_3_1" style="position: absolute; visibility: hidden;"><li><p>A few texts need to be translated then properly labelled. &nbsp;These are all in the [DIALOGS]
+<br>
+section. &nbsp;It should be clear from the texts already there what to do.
+<br>
+
+<br>
+* Texts are accessed by a two-letter language code (en-english, pl-polish etc.) &nbsp;This
+<br>
+code is the ISO 639-1 standard. &nbsp;(If a 2-letter code isn't applicable then a 3-letter
+<br>
+version can be used instead.)
+<br>
+
+<br>
+* Insert the language code in the "i18n" line in the correct alphabetical position and add a 
+<br>
+vertical bar.
+<br>
+
+<br>
+* Create a new series of texts with the language code of the labels changed. &nbsp;For example
+<br>
+HOWTOen -&gt; HOWTOsp.
+<br>
+
+<br>
+* "&lt;BR&gt;" indicates a new line. &nbsp;"*KEY*" will get replaced by the function key in use at the time.
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_2_3_3_2" class="foldclosed" onclick="show_folder('1_2_3_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3_3_2" class="foldopened" onclick="hide_folder('1_2_3_3_2')">-</span>
+Texts
+<ul id="fold1_2_3_3_2" style="position: absolute; visibility: hidden;"><li><p>HOWTOxx &nbsp;Basic instruction
+<br>
+
+</p><p>INFOxx &nbsp;Telling what the current cycles are
+</p><p>MOREINFOxx &nbsp;Directing the user to look at the help file or visit the web site.
+</p><p>LABELSxx &nbsp;Seven brief captions that appear on the settings/preferences dialog
+<br>
+The first is used for the menu and as a caption for the dialog
+<br>
+The rest are labels for the controls left to right, top to bottom.
+</p><p>OPTIONSxx &nbsp;Four options to appear in the combining and auto-start lists
+<br>
+1 Main language takes priority in combining
+<br>
+2 Language cycles are merged 
+<br>
+3 Yes
+<br>
+4 No 
+</p><p>SETTINGSxx &nbsp;Instruction to access settings/preferences dialog
+</p><p>SANDBOXxx &nbsp;The first item (before |) appears at the menu 
+title. &nbsp;The rest, notice new lines &lt;BR&gt;, is simple 
+explanation of how to use the sandbox. 
+</p><p><span id="show1_2_3_3_2_1" class="foldclosed" onclick="show_folder('1_2_3_3_2_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_2_3_3_2_1" class="foldopened" onclick="hide_folder('1_2_3_3_2_1')">-</span>
+EXITxx
+</p><ul id="fold1_2_3_3_2_1" style="position: absolute; visibility: hidden;"><li>Menu item
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3" class="foldclosed" onclick="show_folder('1_3')" style="position: relative; visibility: visible;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3" class="foldopened" onclick="hide_folder('1_3')">-</span>
+<span style="color: rgb(102, 153, 255); font-size: 116%; font-family: SansSerif,sans-serif; font-weight: bold;">Script construction</span>
+<ul id="fold1_3" style="position: absolute; visibility: hidden;"><li><span id="show1_3_1" class="foldclosed" onclick="show_folder('1_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1" class="foldopened" onclick="hide_folder('1_3_1')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Overview</span>
+<ul id="fold1_3_1" style="position: absolute; visibility: hidden;"><li><span id="show1_3_1_1" class="foldclosed" onclick="show_folder('1_3_1_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1_1" class="foldopened" onclick="hide_folder('1_3_1_1')">-</span>
+Script and .cfg
+<ul id="fold1_3_1_1" style="position: absolute; visibility: hidden;"><li><p>ax.ahk
+ &nbsp;is the 'program source' as described below in detail. &nbsp;This 
+is written in the AutoHotkey scripting language. &nbsp;(This scripting 
+language is not for the faint-hearted as it has many quirks.)
+<br>
+See www.autohotkey.com for more details.
+<br>
+(Specifically the AutoHotkey_L variant which supports Unicode.)
+<br>
+
+<br>
+ax.cfg is a Unicode file which contains the character cycles, 
+internationalised dialog strings and a bit of version information and 
+editing hints.
+<br>
+
+<br>
+Settings are stored in the registry.
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_1_2" class="foldclosed" onclick="show_folder('1_3_1_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1_2" class="foldopened" onclick="hide_folder('1_3_1_2')">-</span>
+Reading the cfg
+<ul id="fold1_3_1_2" style="position: absolute; visibility: hidden;"><li><p>The sections of the configuration are identified by [&lt;word&gt;] at the start of a line.
+<br>
+The [CYCLES] section is reserved for entries of the form &lt;name&gt;=&lt;cycle&gt;
+<br>
+
+<br>
+All lines of the form &lt;key&gt;=&lt;value&gt; are read into memory. &nbsp;For example
+<br>
+"i18n=de|en|fr|pl" will be accessible to the program as a variable %i18n%
+<br>
+
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_1_3" class="foldclosed" onclick="show_folder('1_3_1_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1_3" class="foldopened" onclick="hide_folder('1_3_1_3')">-</span>
+Reading the registry
+<ul id="fold1_3_1_3" style="position: absolute; visibility: hidden;"><li><p>The registry is used to store settings/preferences.
+<br>
+The main branch is HKLM, SOFTWARE\Vulpeculox\AX
+<br>
+The keys (which become variables of the same name) are
+<br>
+* mainlang - Name of main language
+<br>
+* extralang - Name of additional language
+<br>
+* merge - One of the options from the 'combine by' drop-down (See 
+OPTIONSxx in [DIALOGS]) &nbsp;In English "Masking" or "Merging"
+<br>
+* dialoglang - Two character code used for internationalising dialogs and splash screen
+<br>
+* splashdelay - String version of number of seconds
+<br>
+* fkey - Function key to use eg "F4"
+<br>
+
+<br>
+Registry values are first set up by the installation program.
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_1_4" class="foldclosed" onclick="show_folder('1_3_1_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1_4" class="foldopened" onclick="hide_folder('1_3_1_4')">-</span>
+Fundamental method
+<ul id="fold1_3_1_4" style="position: absolute; visibility: hidden;"><li><p>When F8(etc) is pressed it selects and backspaces as if from the keyboard.
+<br>
+Now it copies the selected character and looks it up in a list of characters called a cycle.
+<br>
+If if is in the cycle it pastes the next character in the place of the selected one.
+<br>
+
+<br>
+Suppose we have a cycle of three characters "S$S". &nbsp;If the cursor is just to the right of "S"
+<br>
+in some text when F8 is pressed the next character in the cycle will be "$" and so S is
+<br>
+turned into $. &nbsp;If we press F8 again now the character to the left of the cursor is "$" &nbsp;It 
+<br>
+is found of course in the cycle and the next is "S". &nbsp;&nbsp;Notice that we are now exactly as
+<br>
+we were at the start.
+<br>
+
+<br>
+
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_1_5" class="foldclosed" onclick="show_folder('1_3_1_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1_5" class="foldopened" onclick="hide_folder('1_3_1_5')">-</span>
+Combining cycles
+<ul id="fold1_3_1_5" style="position: absolute; visibility: hidden;"><li><p>This
+ is quite a tricky operation applied when we are using the 'Merge' 
+method of combining the main and extra sets. &nbsp;&nbsp;In a nutshell 
+we look at the cycles of the extra language and either append complete 
+to the end of the main language cycles (if the isn't a clash) or cut the
+ characters into the appropriate cycle of the main language if they 
+'run-together'. 
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_1_6" class="foldclosed" onclick="show_folder('1_3_1_6')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_1_6" class="foldopened" onclick="hide_folder('1_3_1_6')">-</span>
+Settings
+<ul id="fold1_3_1_6" style="position: absolute; visibility: hidden;"><li><p>Dealing with the settings are organised in two parts
+<br>
+(1) Create and populate the dialog
+<br>
+(2) Update and dispose of dialog then re-read the config
+<br>
+
+<br>
+
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_2" class="foldclosed" onclick="show_folder('1_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_2" class="foldopened" onclick="hide_folder('1_3_2')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Reading the command line</span>
+<ul id="fold1_3_2" style="position: absolute; visibility: hidden;"><li>Version 4 doesn't read the command line. &nbsp;(All settings are done by menu and registry.)
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_3" class="foldclosed" onclick="show_folder('1_3_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3" class="foldopened" onclick="hide_folder('1_3_3')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Reading the registry</span>
+<ul id="fold1_3_3" style="position: absolute; visibility: hidden;"><li><span id="show1_3_3_1" class="foldclosed" onclick="show_folder('1_3_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_1" class="foldopened" onclick="hide_folder('1_3_3_1')">-</span>
+Overview
+<ul id="fold1_3_3_1" style="position: absolute; visibility: hidden;"><li><p>From
+ version 4 the registry is used to keep user preferences for 'splash 
+language', initial active language or initial set. &nbsp;Autostart is 
+controlled by creating/deleting a shortcut in the start menu group.
+<br>
+
+<br>
+The base key is HKLM, SOFTWARE\Vulpeculox\AX
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_3_2" class="foldclosed" onclick="show_folder('1_3_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_2" class="foldopened" onclick="hide_folder('1_3_3_2')">-</span>
+keys
+<ul id="fold1_3_3_2" style="position: absolute; visibility: hidden;"><li><span id="show1_3_3_2_1" class="foldclosed" onclick="show_folder('1_3_3_2_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_2_1" class="foldopened" onclick="hide_folder('1_3_3_2_1')">-</span>
+mainlang
+<ul id="fold1_3_3_2_1" style="position: absolute; visibility: hidden;"><li>String used to reference a language cycle in ax.cfg eg "Spanish"
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_3_2_2" class="foldclosed" onclick="show_folder('1_3_3_2_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_2_2" class="foldopened" onclick="hide_folder('1_3_3_2_2')">-</span>
+extralang
+<ul id="fold1_3_3_2_2" style="position: absolute; visibility: hidden;"><li><p>String used to reference an extra cycle in ax.cfg &nbsp;eg Arrows
+<br>
+Can also be used to reference a 2nd language
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_3_2_3" class="foldclosed" onclick="show_folder('1_3_3_2_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_2_3" class="foldopened" onclick="hide_folder('1_3_3_2_3')">-</span>
+merge
+<ul id="fold1_3_3_2_3" style="position: absolute; visibility: hidden;"><li><p>String: 
+<br>
+Merge (or i18n equivilent) ... Merge base and extra cycles
+<br>
+Mask (or i18n equivilent) ... Base cycles mask extra cycles
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_3_2_4" class="foldclosed" onclick="show_folder('1_3_3_2_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_2_4" class="foldopened" onclick="hide_folder('1_3_3_2_4')">-</span>
+dialoglang
+<ul id="fold1_3_3_2_4" style="position: absolute; visibility: hidden;"><li><p>A two character string (lowercase) which selects the language to use for splash and other messages.
+<br>
+
+<br>
+Currently supported are en(default),fr,de, and pl
+<br>
+
+<br>
+The code needs to match the splash screen texts section of ax.cfg
+<br>
+
+
+</p></li></ul>
+</li>
+<li>splashdelay
+
+</li>
+<li><span id="show1_3_3_2_5" class="foldclosed" onclick="show_folder('1_3_3_2_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_3_2_5" class="foldopened" onclick="hide_folder('1_3_3_2_5')">-</span>
+Fkey
+<ul id="fold1_3_3_2_5" style="position: absolute; visibility: hidden;"><li>String : eg F8
+<br>
+Function key used to operate
+<br>
+F1 ... F12
+<br>
+
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_4" class="foldclosed" onclick="show_folder('1_3_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4" class="foldopened" onclick="hide_folder('1_3_4')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Settings</span>
+<ul id="fold1_3_4" style="position: absolute; visibility: hidden;"><li><span id="show1_3_4_1" class="foldclosed" onclick="show_folder('1_3_4_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4_1" class="foldopened" onclick="hide_folder('1_3_4_1')">-</span>
+main and extra languages
+<ul id="fold1_3_4_1" style="position: absolute; visibility: hidden;"><li>Stored in the registry.
+<br>
+The list of options is built-up from the languages listed in ax.cfg
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_4_2" class="foldclosed" onclick="show_folder('1_3_4_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4_2" class="foldopened" onclick="hide_folder('1_3_4_2')">-</span>
+merge or mask
+<ul id="fold1_3_4_2" style="position: absolute; visibility: hidden;"><li><p>Switches between the two methods of combining languages.
+<br>
+The options are read from the [DIALOGS] section of ax.cfg and may be internationalised. (See OPTIONSxx)
+<br>
+Stored in the registry
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_4_3" class="foldclosed" onclick="show_folder('1_3_4_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4_3" class="foldopened" onclick="hide_folder('1_3_4_3')">-</span>
+Automatic start
+<ul id="fold1_3_4_3" style="position: absolute; visibility: hidden;"><li><p>Automatic starting is arranged by putting a shortcut (.lnk) to ax.exe in the startup section of the start menu. &nbsp;
+<br>
+The yes/no otions may be internationalised (See OPTIONSxx)
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_4_4" class="foldclosed" onclick="show_folder('1_3_4_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4_4" class="foldopened" onclick="hide_folder('1_3_4_4')">-</span>
+Dialog language
+<ul id="fold1_3_4_4" style="position: absolute; visibility: hidden;"><li><p>The two character code used to internationalise splash screen and dialogs.
+<br>
+Stored in the registry
+<br>
+The options for this are obtained from the "i18n" value in the [DIALOGS] section.
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_4_5" class="foldclosed" onclick="show_folder('1_3_4_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4_5" class="foldopened" onclick="hide_folder('1_3_4_5')">-</span>
+Splash delay
+<ul id="fold1_3_4_5" style="position: absolute; visibility: hidden;"><li><p>Number of seconds before automatically closing the splash screen.
+<br>
+Stored in the regsitry
+<br>
+Note : I Have not allowed this to be completely disabled as I believe it is important
+<br>
+that programs which insinuate themselves in sensitive places should not do so
+<br>
+with complete stealth.
+
+</p></li></ul>
+</li>
+<li><span id="show1_3_4_6" class="foldclosed" onclick="show_folder('1_3_4_6')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_3_4_6" class="foldopened" onclick="hide_folder('1_3_4_6')">-</span>
+Function key
+<ul id="fold1_3_4_6" style="position: absolute; visibility: hidden;"><li><p>Defaulting to F8 this is stored in the registry as a string. &nbsp;eg "F4"
+<br>
+The options are hard-coded F1...F12
+<br>
+
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4" class="foldclosed" onclick="show_folder('1_4')" style="position: relative; visibility: visible;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_4" class="foldopened" onclick="hide_folder('1_4')">-</span>
+<span style="color: rgb(102, 153, 255); font-size: 116%; font-family: SansSerif,sans-serif; font-weight: bold;">Versions</span>
+<ul id="fold1_4" style="position: absolute; visibility: hidden;"><li><p><span id="show1_4_1" class="foldclosed" onclick="show_folder('1_4_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_4_1" class="foldopened" onclick="hide_folder('1_4_1')">-</span>
+Pre-history &nbsp;
+</p><ul id="fold1_4_1" style="position: absolute; visibility: hidden;"><li><p>The first version of AX was written and distributed back in 1993.
+<br>
+It was created using Visual Basic for Windows but it didn't work
+<br>
+ very well with Win98 and so fell into disuse. &nbsp;
+<br>
+
+<br>
+The method was revived in 2008 using the AutoHotkey scripting utility
+<br>
+as an excuse to put off real work for an hour.
+<br>
+
+<br>
+Version improvements have been driven by feedback from users.
+
+</p></li></ul><p><span id="show1_4_2" class="foldclosed" onclick="show_folder('1_4_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_4_2" class="foldopened" onclick="hide_folder('1_4_2')">-</span>
+
+<br>
+Version 1.00 &nbsp;5th September 2008
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;First release
+<br>
+
+</p><ul id="fold1_4_2" style="position: absolute; visibility: hidden;"><li><p>Version 1.10 &nbsp;16th January 2009
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;French character set renamed French1
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;ö&#339;&nbsp;Ö&#338;&nbsp;Æ&nbsp;æ&nbsp;Added to French
+
+</p></li></ul><p><span id="show1_4_3" class="foldclosed" onclick="show_folder('1_4_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_4_3" class="foldopened" onclick="hide_folder('1_4_3')">-</span>
+
+<br>
+ Version 2.10 &nbsp;14th December 2010
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Recompiled with Unicode support
+<br>
+
+</p><ul id="fold1_4_3" style="position: absolute; visibility: hidden;"><li> Version 2.20 &nbsp;21st December 2010
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Command line parameter bug fixed 
+<br>
+
+
+</li>
+<li> Version 2.21 &nbsp;22nd December 2010
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Email address changed to ax@vulpeculox.net in docs and cfg
+<br>
+
+
+</li>
+<li> Version 2.30 &nbsp;24th December 2010
+<br>
+ &nbsp;&#8226;&nbsp;Ttweaks to documentation.
+<br>
+
+
+</li>
+
+</ul><p><span id="show1_4_4" class="foldclosed" onclick="show_folder('1_4_4')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_4_4" class="foldopened" onclick="hide_folder('1_4_4')">-</span>
+ Version 3.0 &nbsp;&nbsp;26th December 2010
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Supports French and German splash screen.
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Russian cycles added
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;New installation method
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Documentation revised
+<br>
+
+</p><ul id="fold1_4_4" style="position: absolute; visibility: hidden;"><li><p> Version 3.10 &nbsp;28th January 2011
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Added Polish, Esperanto, Slovak, Chinese-pinyin
+<br>
+ &nbsp;&#8226;&nbsp;&nbsp;Bug in Italian fixed
+
+</p></li></ul><p>Version 4.0 &nbsp;&nbsp;30th January 2011
+<br>
+&#8226; NOT COMPATIBLE WITH PREVIOUS VERSIONS
+<br>
+&#8226; Complete rewrite of settings to use menu and dialog to be intuitive and non-technical
+<br>
+&#8226; Command line and shortcuts and multiple start/programs/ax menus removed
+<br>
+&#8226; Smoother, simpler setup program
+<br>
+&#8226; Better internationalisation
+<br>
+&#8226; Additional languages and symbols
+<br>
+&#8226; Rewrite of documentation and simplification of getting started
+<br>
+
+</p><p>Version 4.10 &nbsp;12th Feb 2011
+<br>
+&#8226; Adapted so that preferences are stored in a file called ax.settings. 
+<br>
+This improves the user experience when using AX on a USB stick.
+<br>
+(Settings are still stored in the registry. &nbsp;This only kicks-in if AX is
+<br>
+not being run under the program files directory.)
+<br>
+
+<p>Version 4.11 &nbsp;14th August 2011
+<br>
+Bug fixed when merging character cycles
+<br>
+
+</p><p><span id="show1_4_5" class="foldclosed" onclick="show_folder('1_4_5')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_4_5" class="foldopened" onclick="hide_folder('1_4_5')">-</span>
+Other operating systems
+</p><ul id="fold1_4_5" style="position: absolute; visibility: hidden;"><li><p>AX has been made possible by hooking into the Windows operating system, which unfortunately makes it Windows specific.
+<br>
+
+<br>
+I'm sure that other operating systems could be hacked to give a similar 
+feature - don't forget the basic method is incredibly simple. &nbsp;For 
+an OS expert the API calls shouldn't be too challenging: A keyboard 
+hook, a way to send fake characters and a way to read the cut and paste 
+buffer are all that's required.
+<br>
+
+<br>
+ &nbsp;
+
+</p></li></ul><p>Languages
+</p><ul><li>4.03 11 Feb 2011 &nbsp;Turkish errors fixed<br>
+            4.06 31 June 2011 &nbsp;IndicCombo added
+
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onclick="show_folder('1_5')" style="position: relative; visibility: visible;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_5" class="foldopened" onclick="hide_folder('1_5')">-</span>
+<span style="color: rgb(102, 153, 255); font-size: 116%; font-family: SansSerif,sans-serif; font-weight: bold;">Packaging</span>
+<ul id="fold1_5" style="position: absolute; visibility: hidden;"><li><span id="show1_5_1" class="foldclosed" onclick="show_folder('1_5_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_5_1" class="foldopened" onclick="hide_folder('1_5_1')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Packing list</span>
+<ul id="fold1_5_1" style="position: absolute; visibility: hidden;"><li><p>Essential
+<br>
+&#8226; ax.exe
+<br>
+&#8226; ax.cfg
+<br>
+Required
+<br>
+&#8226; licence.txt
+<br>
+&#8226; docs\GetStarteden.txt &nbsp;... Info to appear in installer
+<br>
+&#8226; docs\axen.htm &nbsp;... full documentation (en)
+<br>
+&#8226; ax.ico
+<br>
+Sources
+<br>
+&#8226; ax.ahk
+
+</p></li></ul>
+</li>
+<li><span id="show1_5_2" class="foldclosed" onclick="show_folder('1_5_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_5_2" class="foldopened" onclick="hide_folder('1_5_2')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Compiling script</span>
+<ul id="fold1_5_2" style="position: absolute; visibility: hidden;"><li>This must be done with the unicode version of Ahk2Exe.exe &nbsp;(AutoHotkey_L)
+<br>
+
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_5_3" class="foldclosed" onclick="show_folder('1_5_3')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_5_3" class="foldopened" onclick="hide_folder('1_5_3')">-</span>
+<span style="color: rgb(0, 0, 255); font-family: SansSerif,sans-serif; font-weight: bold;">Creating installer</span>
+<ul id="fold1_5_3" style="position: absolute; visibility: hidden;"><li><span id="show1_5_3_1" class="foldclosed" onclick="show_folder('1_5_3_1')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_5_3_1" class="foldopened" onclick="hide_folder('1_5_3_1')">-</span>
+Minimal install
+<ul id="fold1_5_3_1" style="position: absolute; visibility: hidden;"><li><p>To create a working AX all that is needed is ax.exe and ax.cfg in the same directory.
+<br>
+(However this doesn't comply with the terms of the GPL and isn't user friendly.)
+
+</p></li></ul>
+</li>
+<li><span id="show1_5_3_2" class="foldclosed" onclick="show_folder('1_5_3_2')" style="position: absolute; visibility: hidden;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_5_3_2" class="foldopened" onclick="hide_folder('1_5_3_2')">-</span>
+Inno setup
+<ul id="fold1_5_3_2" style="position: absolute; visibility: hidden;"><li><p>The standard setup program is built with Inno setup.
+<br>
+
+<br>
+The configuration for this is available on request.
+
+</p></li></ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_6" class="foldclosed" onclick="show_folder('1_6')" style="position: relative; visibility: visible;">+</span> <span style="visibility: hidden; position: absolute;" id="hide1_6" class="foldopened" onclick="hide_folder('1_6')">-</span>
+<span style="color: rgb(102, 153, 255); font-size: 116%; font-family: SansSerif,sans-serif; font-weight: bold;">Credits</span>
+<ul id="fold1_6" style="position: absolute; visibility: hidden;"><li><p> &#8226;&nbsp;&nbsp;Users who have put time and effort into improving AX, particularly by 
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;supplying new character cycles and translations of documentation.
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Mehmet Kayaalp
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Jerry McCarthy
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Roger McKeon
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- David Mummery
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Alain Petit
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- George Zolkiewski
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Brian Williams
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Laszlo Horvath
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;- Angelo Pugliese from Kolkata, India
+<br>
+
+<br>
+&#8226; &nbsp;The people who have created, developed and made freely available
+ &lt;i&gt;Autohotkey&lt;/i&gt; and &lt;i&gt;AutoHotkey_L&lt;/i&gt;
+<br>
+
+<br>
+&#8226; The people who have created the &lt;i&gt;Inno setup&lt;/i&gt; installer creator program. 
+
+</p></li></ul>
+</li>
+
+</ul><script language="JavaScript">
+fold_document();
+</script>
+</body></html>
